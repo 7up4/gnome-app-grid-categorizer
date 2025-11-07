@@ -26,6 +26,7 @@ This script automates the configuration of GNOME Shell's application folders. It
 ## Prerequisites
 
 - GNOME Shell (tested on GNOME 49)
+- `dconf` command-line tool
 - `gsettings` command-line tool (usually included with GNOME)
 - `gnome-menus` GNOME menu specifications
 
@@ -58,9 +59,8 @@ bash gnome-app-grid-categorizer.sh
 
 ## What This Script Does
 
-1. **Sets Folder Order**: Defines the display order of application folders in GNOME Shell
-2. **Configures Each Folder**: Sets up proper names, categories, and translation settings
-3. **Uses `.directory` Files**: Leverages GNOME's standard desktop entry system for localization
+1. **Configures Each Folder**: Sets up proper names, categories, and translation settings
+2. **Uses `.directory` Files**: Leverages GNOME's standard desktop entry system for localization
 
 ## Restarting GNOME Shell
 
@@ -72,10 +72,9 @@ After running the script, restart GNOME Shell to see changes:
 
 You can easily modify the script to:
 
-1. **Change folder order**: Edit the `FOLDER_ORDER` array
-2. **Add/remove categories**: Modify the `FOLDERS` associative array
-3. **Change category names**: Update the name base values
-4. **Adjust categories**: Modify the category arrays
+1. **Add/remove categories**: Modify the `FOLDERS` associative array
+2. **Change category names**: Update the name base values
+3. **Adjust categories**: Modify the category arrays
 
 ## Troubleshooting
 

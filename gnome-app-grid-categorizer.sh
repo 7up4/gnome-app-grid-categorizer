@@ -12,7 +12,7 @@ set -euo pipefail
 #     translate     → 'true' or 'false'
 declare -A FOLDERS=(
     ["utility"]="Utility.directory|['Utility']|true"
-    ["web-applications"]="X-GNOME-WebApplications.directory|['chrome-apps']|true"
+    ["web-applications"]="X-GNOME-WebApplications.directory|['chrome-apps', 'WebApps']|true"
     ["game"]="Game.directory|['Game']|true"
     ["graphics"]="Graphics.directory|['Graphics']|true"
     ["network"]="Network.directory|['Network', 'WebBrowser', 'Email']|true"
@@ -26,8 +26,8 @@ declare -A FOLDERS=(
     ["wine"]="Wine|['Wine', 'X-Wine', 'Wine-Programs-Accessories']|false"
 )
 
-# --- Order of folders in overview ---
-FOLDER_ORDER=(
+# --- Folders in overview ---
+FOLDER_IDS=(
     utility
     web-applications
     game
@@ -43,26 +43,34 @@ FOLDER_ORDER=(
     wine
 )
 
-# =============================================================================
-# 1. Set folder order
-# =============================================================================
-order_array=$(printf "'%s'," "${FOLDER_ORDER[@]}")
-order_array="[${order_array%,}]"
-gsettings set org.gnome.desktop.app-folders folder-children "$order_array"
+# Base dconf path
+BASE_PATH="/org/gnome/desktop/app-folders/"
 
 # =============================================================================
-# 2. Configure each folder
+# 1. Clear all existing app folder data
 # =============================================================================
-for folder_id in "${FOLDER_ORDER[@]}"; do
+dconf reset -f "$BASE_PATH"
+
+# =============================================================================
+# 2. Setup new folders
+# =============================================================================
+# Build array: ['utility', 'web-applications', ...]
+folder_array=$(printf "'%s'," "${FOLDER_IDS[@]}")
+folder_array="[${folder_array%,}]"
+
+dconf write "${BASE_PATH}folder-children" "$folder_array"
+
+# =============================================================================
+# 3. Configure each folder
+# =============================================================================
+for folder_id in "${FOLDER_IDS[@]}"; do
     IFS='|' read -r name_base categories translate <<< "${FOLDERS[$folder_id]}"
-    schema="org.gnome.desktop.app-folders.folder:/org/gnome/desktop/app-folders/folders/${folder_id}/"
+    folder_path="${BASE_PATH}folders/${folder_id}/"
 
-    gsettings set "$schema" name "'$name_base'"
-    gsettings set "$schema" translate "$translate"
-    gsettings set "$schema" categories "$categories"
+    dconf write "${folder_path}name" "'$name_base'"
+    dconf write "${folder_path}translate" "$translate"
+    dconf write "${folder_path}categories" "$categories"
 done
-
-gsettings set org.gnome.shell app-picker-layout "[]"
 
 echo "App folders configured successfully!"
 echo "Restart GNOME Shell"
