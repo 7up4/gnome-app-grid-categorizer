@@ -27,7 +27,6 @@ This script automates the configuration of GNOME Shell's application folders. It
 
 - GNOME Shell (tested on GNOME 49)
 - `dconf` command-line tool
-- `gsettings` command-line tool (usually included with GNOME)
 - `gnome-menus` GNOME menu specifications
 
 ## Installation

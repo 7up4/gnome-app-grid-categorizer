@@ -22,7 +22,7 @@ declare -A FOLDERS=(
     ["audio-video"]="AudioVideo.directory|['AudioVideo', 'Audio', 'Video']|true"
     ["system-tools"]="System-Tools.directory|['System', 'Settings']|true"
     ["utility-accessibility"]="Utility-Accessibility.directory|['Accessibility']|true"
-    ["waydroid"]="Waydroid|['Waydroid', 'X-WayDroid-App']|false"
+    ["waydroid"]="waydroid.directory|['Waydroid', 'X-WayDroid-App']|true"
     ["wine"]="Wine|['Wine', 'X-Wine', 'Wine-Programs-Accessories']|false"
 )
 
