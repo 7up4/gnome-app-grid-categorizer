@@ -12,7 +12,7 @@ set -euo pipefail
 #     translate     → 'true' or 'false'
 declare -A FOLDERS=(
     ["utility"]="Utility.directory|['Utility']|true"
-    ["web-applications"]="X-GNOME-WebApplications.directory|['chrome-apps', 'WebApps']|true"
+    ["web-applications"]="X-GNOME-WebApplications.directory|['chrome-apps', 'WebApps', 'X-GNOME-WebApplication']|true"
     ["game"]="Game.directory|['Game']|true"
     ["graphics"]="Graphics.directory|['Graphics']|true"
     ["network"]="Network.directory|['Network', 'WebBrowser', 'Email']|true"
